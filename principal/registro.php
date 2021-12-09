@@ -9,29 +9,7 @@
 <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 <script src="js/jquery-1.12.4-jquery.min.js"></script>
 <script src="bootstrap/js/bootstrap.min.js"></script>
-<style type="text/css">
-	.login-form {
-		width: 340px;
-    	margin: 20px auto;
-	}
-    .login-form form {
-    	margin-bottom: 15px;
-        background: #f7f7f7;
-        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-        padding: 30px;
-    }
-    .login-form h2 {
-        margin: 0 0 15px;
-    }
-    .form-control, .btn {
-        min-height: 38px;
-        border-radius: 2px;
-    }
-    .btn {        
-        font-size: 15px;
-        font-weight: bold;
-    }
-</style>
+<link rel="stylesheet" href="css/main.css">
 </head>
 	<body>
 <?php
