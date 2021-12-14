@@ -49,10 +49,10 @@
                         ?>
                     </h3>
                     <br>
-                    <a href="users.php"><button type="button" class="btn btn-success"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Listado de usuarios</button></a>
+                    <a href="crud_usuarios/index.php"><button type="button" class="btn btn-success"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Listado de usuarios</button></a>
                     <br>
                     <br>
-                    <a href="subir_musica/sube_mp3.php"><button type="button" class="btn btn-success"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Listado de temas</button></a>
+                    <a href="subir_musica/index.php"><button type="button" class="btn btn-success"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Listado de temas</button></a>
                     <br>
                     <br>
                     <a href="../cerrar_sesion.php"><button class="btn btn-danger text-left"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cerrar Sesion</button></a>
