@@ -76,19 +76,66 @@
         $dis = $_POST["Disco"];
         $ani = $_POST["Anio"];
         $cancion_1 = $_POST["Cancion_1"];
+
+
+        $nombre_mp_3 = $_FILES["Mp_3"]["name"];
+        $tipo_mp_3 = $_FILES["Mp_3"]["type"];
+        $tamagno_mp_3 = $_FILES["Mp_3"]["size"];
+        echo "<br>";
+        echo "Nombre del tema: " . $nombre_mp_3 = $_FILES["Mp_3"]["name"];
+        echo "<br>";
+        echo "Extension: " . $tipo_mp_3 = $_FILES["Mp_3"]["type"];
+        echo "<br>";
+        echo  "Tamaño del archivo: " . $tamagno_mp_3 = $_FILES["Mp_3"]["size"];
+        echo "<br>";
+
+
+        if ($tamagno_mp_3 <= 30000000) {     //la carga del archivo se lleva a cabo si en menor a 3000000 de bytes
+
+            if ($tipo_mp_3 == "mp_3/audio" || "mp_3/mpeg") {
+
+                //Es la ruta de la carpeta donde se guardaran las imagnenes
+                $carpeta_destino = $_SERVER["DOCUMENT_ROOT"] . '/musica/principal/admin/subir_musica/mp3_mpeg/';
+
+                echo $carpeta_destino;
+                echo "<br>";
+                echo $nombre_mp_3;
+
+                //Movemos la imagen de la carpeta temporal a la carpeta de destino
+                move_uploaded_file($_FILES['Mp_3']['tmp_name'], $carpeta_destino . $nombre_mp_3);
+            } else {
+                echo "Solo se pueden subir archivos mp3";
+            }
+        } else {
+            echo "<br>El archivo no debe superar los 2MB";
+        }
+        echo "<br>";
+        echo "<a href='index.php'>Inicio</a>";
+        echo "<br>";
+        echo "<br>";
+        echo "<a href='leer_imagen.php'>Ver las imagenes</a>";
+
+
+
+
+
+
+
+
+
         //El id no hace falta porque es autonumerico
-        $sql = "INSERT INTO discos (banda, disco, anio, cancion_1) VALUES 
-                                   (:banda, :disco, :anio, :cancion_1)";
+        $sql = "INSERT INTO discos (banda, disco, anio, cancion_1, mp_3) VALUES 
+                                   (:banda, :disco, :anio, :cancion_1, :mp_3)";
         $resultado = $base->prepare($sql);
         $resultado->execute(array(
             ":banda" => $ban,
             ":disco" => $dis,
             ":anio" => $ani,
-            ":cancion_1" => $cancion_1
+            ":cancion_1" => $cancion_1,
+            ":mp_3" => $nombre_mp_3
         ));
         header("location:index.php");
     }
-
 
     ?>
 
@@ -97,10 +144,13 @@
     <h1>Editor<span class="subtitulo"> de albumes</span></h1>
 
 
+
+
+
     <div class="wrapper">
         <div class="container">
             <div class="col-lg-12">
-                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="form-horizontal">
+                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" class="form-horizontal" enctype="multipart/form-data">
                     <table width="50%" border="2" align="center">
                         <div class="form-group">
                             <div class="col-sm-12">
@@ -111,10 +161,12 @@
                                     <td class="primera_fila">Disco</td>
                                     <td class="primera_fila">Año</td>
                                     <td class="primera_fila">Canción</td>
+                                    <td class="primera_fila">Tema en mp3</td>
                                     <td class="sin">&nbsp;</td>
                                     <td class="sin">&nbsp;</td>
                                     <td class="sin">&nbsp;</td>
-                                    <td class="sin">&nbsp;</td>
+
+
                                 </tr>
 
 
@@ -136,8 +188,7 @@
                                         <td><?php echo $persona->disco ?></td>
                                         <td><?php echo $persona->anio ?></td>
                                         <td><?php echo $persona->cancion_1 ?></td>
-
-
+                                        <td><?php echo $persona->mp_3 ?></td>
                                         <td class="bot"><a href="borrar.php?id=<?php echo $persona->id ?>"><input type='button' name='del' id='del' value='Borrar'></a></td>
                                         <!-- ------------------------------ -->
                                         <!-- Estas lineas son de la edicion -->
@@ -146,11 +197,13 @@
                                                                                 ?> & banda=<?php echo $persona->banda ?> 
                                                                                    & disco=<?php echo $persona->disco ?> 
                                                                                    & anio=<?php echo $persona->anio ?>
-                                                                                   & cancion_1=<?php echo $persona->cancion_1 ?>">
+                                                                                   & cancion_1=<?php echo $persona->cancion_1  ?>
+                                                                                   & mp_3=<?php echo $persona->mp_3 ?>">
                                                 <input type='button' name='up' id='up' value='Actualizar'></a></td>
                                         <!-- ------------------------------ -->
                                     </tr>
                                 <?php
+
                                 // READ-------------------------------------------------------------------------------------
                                 endforeach;
                                 //Otra forma de hacerlo es concatenando todo para que quede php dentro de cada linea de html
@@ -164,37 +217,44 @@
                                     <td></td>
                                     <td><input type='text' name='Banda' size='10' class='centrado' placeholder="Nombre Banda"></td>
                                     <td><input type='text' name='Disco' size='10' class='centrado' placeholder="Nombre Album"></td>
-                                    <td><input type='text' name='Anio' size='10' class='centrado' placeholder="Año Edicion"></td>
+                                    <td><input type='text' name='Anio' size='5' class='centrado' placeholder="Año Edicion"></td>
                                     <td><input type='text' name='Cancion_1' size='15' class='centrado' placeholder="0x_nombre_tema"></td>
+                                    <td><input type="file" name="Mp_3" size="10" class="centrado"></td>
                                     <td class='bot'><input type='submit' name='cr' id='cr' value='Insert'></td>
                                 <tr>
-                                    <td>
 
-                                        <?php
 
-                                        // --------------------------------------------------------
-                                        //aca empieza la parte de abajo con los numeros y saltos de pagina
-                                        //echo "<br>";
-                                        for ($i = 1; $i <= $total_paginas; $i++) {
+                                    <?php
+                                    echo "<p>Pagina:</p>";
+                                    // --------------------------------------------------------
+                                    //aca empieza la parte de abajo con los numeros y saltos de pagina
+                                    //echo "<br>";
+                                    for ($i = 1; $i <= $total_paginas; $i++) {
 
-                                            echo "<a href='?pagina=" . $i . "'>" . $i  . "</a> ";
-                                            //$i tiene que ser un link y lo paso por la url
-                                        }
-                                        ?>
-                                    </td>
+                                        echo "<a href='?pagina=" . $i . "'> " . $i  . "</a> ";
+                                        //$i tiene que ser un link y lo paso por la url
+
+                                    }
+
+                                    ?>
+
                                 </tr>
-                                </tr>
+                            </div>
+                        </div>
                     </table>
-                    <p>&nbsp;</p>
-
                 </form>
-                <div >
-                    <a href="../index.php" class="btn btn-success btn-block">Salir</a>
-                </div>
-
-
             </div>
         </div>
+    </div>
+    <p>&nbsp;</p>
+    </form>
+    <div>
+        <a href="../index.php" class="btn btn-success btn-block">Salir</a>
+    </div>
+
+
+    </div>
+    </div>
     </div>
     </div>
 </body>

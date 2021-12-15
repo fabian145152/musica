@@ -34,6 +34,7 @@
     $disco = $_GET["disco"];
     $anio = $_GET["anio"];
     $cancion_1 = $_GET["cancion_1"];
+    $nombre_mp_3 = $_GET["mp_3"];
   } else {
 
     $id = $_POST["id"];             //Le puse _actualizada pero puedo usar el mismo nombre uqe en el post
@@ -41,17 +42,20 @@
     $disco = $_POST["disco"];      //Le puse _actualizada pero puedo usar el mismo nombre uqe en el post
     $anio = $_POST["anio"];     //Le puse _actualizada pero puedo usar el mismo nombre uqe en el post
     $cancion_1 = $_POST["cancion_1"];
+    $nombre_mp_3 = $_POST["mp_3"];
 
 
 
-    $sql = "UPDATE discos SET banda=:miBanda, disco=:miDisco, anio=:miAnio, cancion_1=:miCancion_1 WHERE id=:miId";
+    $sql = "UPDATE discos SET banda=:miBanda, disco=:miDisco, anio=:miAnio, cancion_1=:miCancion_1, mp_3=:miMp_3 
+    WHERE id=:miId";
     $resultado = $base->prepare($sql);
     $resultado->execute(array(
       ":miId" => $id,
       ":miBanda" => $banda,
       ":miDisco" => $disco,
       ":miAnio" => $anio,
-      "miCancion_1" => $cancion_1
+      "miCancion_1" => $cancion_1,
+      "miMp_3" => $nombre_mp_3
     ));
 
     header("location:index.php");
@@ -96,11 +100,17 @@
           <input type="text" name="anio" id="anio" value="<?php echo $anio ?>">
         </td>
       </tr>
-
       <tr>
         <td>Canción</td>
         <td><label for="cancion_1"></label>
           <input type="text" name="cancion_1" id="cancion_1" value="<?php echo $cancion_1 ?>">
+        </td>
+      </tr>
+
+      <tr>
+        <td>Audio</td>
+        <td><label for="mp_3"></label>
+          <input type="file" name="mp_3" id="mp_3" value="<?php echo $nombre_mp_3 ?>">
         </td>
       </tr>
 

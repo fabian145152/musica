@@ -2,7 +2,7 @@
 $db_host="localhost"; //localhost server 
 $db_user="root";	//database username
 $db_password="belgrado";	//database password   
-$db_name="php_multilogin";	//database name
+$db_name="musica";	//database name
 
 try
 {

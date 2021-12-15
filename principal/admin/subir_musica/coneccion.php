@@ -1,7 +1,7 @@
 <?php
 
 try {
-    $base = new PDO('mysql:host=localhost; dbname=php_multilogin', 'root', 'belgrado');
+    $base = new PDO('mysql:host=localhost; dbname=musica', 'root', 'belgrado');
     $base->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $base->exec("SET CHARACTER SET utf8");
 } catch (Exception $e) {
