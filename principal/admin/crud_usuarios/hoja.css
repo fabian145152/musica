@@ -7,7 +7,7 @@ h1 {
 }
 
 .subtitulo {
-    font-size: 12px;
+    font-size: 10px;
 }
 
 body {
@@ -20,7 +20,7 @@ table td {
 }
 
 table .sin {
-    border: 0;
+    border: 1;
 }
 
 table .bot {

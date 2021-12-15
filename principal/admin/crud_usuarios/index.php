@@ -3,15 +3,20 @@
 
 <head>
     <meta charset="utf-8">
-    <title>CRUD</title>
-    <link rel="stylesheet" type="text/css" href="hoja.css">
-
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0">
+    <title>Sentí tu musica</title>
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <script src="../../js/jquery-1.12.4-jquery.min.js"></script>
+    <script src="../../bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../../css/main.css">
 </head>
 
 <body>
     <?php
 
     include("coneccion.php");
+    include("../../header.php");
     // ------------------1er Paso--------------------------------
     //$conexion = $base->query("SELECT / FROM DATOS_US_UARIOS");
     //$registros = $conexion->fetchAll(PDO::FETCH_OBJ);
@@ -68,10 +73,11 @@
         $user = $_POST["User"];
         $mail = $_POST["Mailer"];
         $pass = $_POST["Pass"];
+        $role = $_POST["Role"];
         //El id no hace falta porque es autonumerico
-        $sql = "INSERT INTO mainlogin (username, email, password) VALUES (:user, :mail, :pass)";
+        $sql = "INSERT INTO mainlogin (username, email, password, role) VALUES (:user, :mail, :pass, :role)";
         $resultado = $base->prepare($sql);
-        $resultado->execute(array(":user" => $user, ":mail" => $mail, ":pass" => $pass));
+        $resultado->execute(array(":user" => $user, ":mail" => $mail, ":pass" => $pass, ":role" => $role));
         header("location:index.php");
     }
 
@@ -79,7 +85,7 @@
     ?>
 
 
-    <h1>CRUD<span class="subtitulo">Create Read Update Delete</span></h1>
+    <h1>Edición<span class="subtitulo"> Usuarios y roles</span></h1>
     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
         <table width="50%" border="0" align="center">
             <tr>
@@ -87,6 +93,8 @@
                 <td class="primera_fila">Usuario</td>
                 <td class="primera_fila">Email</td>
                 <td class="primera_fila">Password</td>
+                <td class="primera_fila">Role</td>
+                <td class="sin">&nbsp;</td>
                 <td class="sin">&nbsp;</td>
                 <td class="sin">&nbsp;</td>
                 <td class="sin">&nbsp;</td>
@@ -110,6 +118,7 @@
                     <td><?php echo $persona->username ?></td>
                     <td><?php echo $persona->email ?></td>
                     <td><?php echo $persona->password ?></td>
+                    <td><?php echo $persona->role ?></td>
 
                     <td class="bot"><a href="borrar.php?id=<?php echo $persona->id ?>"><input type='button' name='del' id='del' value='Borrar'></a></td>
                     <!-- ------------------------------ -->
@@ -118,7 +127,8 @@
                     <td class='bot'><a href="editar.php?id=<?php echo $persona->id
                                                             ?> & user=<?php echo $persona->username ?> 
                                                                & mail=<?php echo $persona->email ?> 
-                                                               & pass=<?php echo $persona->password ?>">
+                                                               & pass=<?php echo $persona->password ?>  
+                                                               & rol=<?php echo $persona->role ?>">
                             <input type='button' name='up' id='up' value='Actualizar'></a></td>
                     <!-- ------------------------------ -->
                 </tr>
@@ -132,39 +142,48 @@
 
             <!-- Esta es la parte del insert con la linea <form action=" <?php //echo $_SERVER['PHP_SELF']; 
                                                                             ?>" method="post">-->
-            <tr>
-                <td></td>
-                <td><input type='text' name='User' size='10' class='centrado'></td>
-                <td><input type='text' name='Mailer' size='10' class='centrado'></td>
-                <td><input type='text' name='Pass' size='10' class='centrado'></td>
-                <td class='bot'><input type='submit' name='cr' id='cr' value='Insertar'></td>
-            <tr>
-                <td>
+            <div>
 
-                    <?php
+                <tr>
+                    <td></td>
+                    <td><input type='text' name='User' size='8' class='centrado' required></td>
+                    <td><input type='text' name='Mailer' size='8' class='centrado' required></td>
+                    <td><input type='text' name='Pass' size='8' class='centrado' required></td>
+                    <td><input type='text' name='Role' size='8' class='centrado' placeholder="admin/personal/usuario" required>
 
-                    // --------------------------------------------------------
-                    //aca empieza la parte de abajo con los numeros y saltos de pagina
-                    echo "<br>";
-                    for ($i = 1; $i <= $total_paginas; $i++) {
+                    </td>
 
-                        echo "<a href='?pagina=" . $i . "'>" . $i . "</a> ";
-                        //$i tiene que ser un link y lo paso por la url
+                    <td class='bot'><input type='submit' name='cr' id='cr' value='Insertar' ></td>
+                <tr>
+                    <td>
+
+            </div>
+            <?php
+
+            // --------------------------------------------------------
+            //aca empieza la parte de abajo con los numeros y saltos de pagina
+            echo "<br>";
+            for ($i = 1; $i <= $total_paginas; $i++) {
+
+                echo "<a href='?pagina=" . $i . "'>" . $i . "</a> ";
+                //$i tiene que ser un link y lo paso por la url
 
 
-                    }
+            }
 
 
-                    ?>
+            ?>
 
-                </td>
+            </td>
             </tr>
             </tr>
         </table>
     </form>
 
-
     <p>&nbsp;</p>
+    <a href="../index.php" class="btn btn-success btn-block">
+        <p style="text-align: center;">Salir</p>
+    </a>
 </body>
 
 </html>

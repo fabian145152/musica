@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0">
-    <title>Musica</title>
+    <title>Sentí tu musica</title>
 
     <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
     <script src="../../js/jquery-1.12.4-jquery.min.js"></script>
@@ -188,7 +188,7 @@
                     <p>&nbsp;</p>
 
                 </form>
-                <div class="col-md-4">
+                <div >
                     <a href="../index.php" class="btn btn-success btn-block">Salir</a>
                 </div>
 

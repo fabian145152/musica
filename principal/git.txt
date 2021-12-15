@@ -1,6 +1,7 @@
 hago una modificacion
  git status -s    ;me la lista
  git add .  
+ puede pedir ruta       git add ruta/archivo.extension
  git commit -m ""    ; agrego mensaje
  git push -u origin main	     ;subo todo a mi repo en git
  git pull 	     ;Traigo todo desde github a mi vsc

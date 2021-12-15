@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0">
-	<title>Multiusuarios PHP MySQL: Niveles de Usuarios</title>
+	<title>Sentí tu musica</title>
 
 	<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
 	<script src="../js/jquery-1.12.4-jquery.min.js"></script>
