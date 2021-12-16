@@ -68,7 +68,8 @@
     //--------------------Fin Paginacion-----------------
 
 
-    $registros = $base->query("SELECT * FROM discos LIMIT $empezar_desde,$tamagno_pagina")->fetchAll(PDO::FETCH_OBJ);
+    $registros = $base->query("SELECT * FROM discos ORDER BY banda, disco, cancion_1 asc  LIMIT 
+    $empezar_desde,$tamagno_pagina")->fetchAll(PDO::FETCH_OBJ);
 
     // parte del insert
     if (isset($_POST["cr"])) {
@@ -198,7 +199,7 @@
                                                                                    & disco=<?php echo $persona->disco ?> 
                                                                                    & anio=<?php echo $persona->anio ?>
                                                                                    & cancion_1=<?php echo $persona->cancion_1  ?>
-                                                                                   & mp_3=<?php echo $persona->mp_3 ?>">
+                                                                                   & Mp_3=<?php echo $persona->mp_3 ?>">
                                                 <input type='button' name='up' id='up' value='Actualizar'></a></td>
                                         <!-- ------------------------------ -->
                                     </tr>
