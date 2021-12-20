@@ -56,7 +56,7 @@
       ":miCancion_1" => $cancion_1
     ));
 
-    // header("location:index.php");
+    header("location:index.php");
   }
   ?>
 

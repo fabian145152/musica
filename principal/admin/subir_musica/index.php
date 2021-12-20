@@ -28,7 +28,7 @@
 
     //--------------------Paginacion---------------------
 
-    $tamagno_pagina = 10;    //cantidad de registros por pagina
+    $tamagno_pagina = 7;    //cantidad de registros por pagina
 
     //--------------Sigue aca desde abajo de todo--------------
     if (isset($_GET["pagina"])) {
@@ -96,15 +96,22 @@
             if ($tipo_mp_3 == "mp_3/audio" || "mp_3/mpeg") {
 
                 //Es la ruta de la carpeta donde se guardaran las imagnenes
-                $carpeta_destino = $_SERVER["DOCUMENT_ROOT"] . '/musica/principal/admin/subir_musica/mp3_mpeg/';
+                $carpeta_destino = $_SERVER["DOCUMENT_ROOT"] . '/musica/principal/admin/mp3_mpeg/mp3_mpeg/';
 
-                echo $carpeta_destino;
+
+
+                echo "Carpeta destino " . $carpeta_destino;
                 echo "<br>";
-                echo $nombre_mp_3;
+                echo "Nombre del tema" . $nombre_mp_3;
+                echo "<br>";
+                $lugar = $carpeta_destino . $nombre_mp_3;
+                echo $lugar;
+
+
 
                 //Movemos la imagen de la carpeta temporal a la carpeta de destino
                 move_uploaded_file($_FILES['Mp_3']['tmp_name'], $carpeta_destino . $nombre_mp_3);
-            } else {
+
                 echo "Solo se pueden subir archivos mp3";
             }
         } else {
@@ -116,14 +123,7 @@
         echo "<br>";
         echo "<a href='leer_imagen.php'>Ver las imagenes</a>";
 
-
-
-
-
-
-
-
-
+        $nombre_mp_3 =  $carpeta_destino . $nombre_mp_3;
         //El id no hace falta porque es autonumerico
         $sql = "INSERT INTO discos (banda, disco, anio, cancion_1, mp_3) VALUES 
                                    (:banda, :disco, :anio, :cancion_1, :mp_3)";
@@ -134,8 +134,9 @@
             ":anio" => $ani,
             ":cancion_1" => $cancion_1,
             ":mp_3" => $nombre_mp_3
+
         ));
-        header("location:index.php");
+        //header("location:index.php");
     }
 
     ?>
@@ -166,8 +167,6 @@
                                     <td class="sin">&nbsp;</td>
                                     <td class="sin">&nbsp;</td>
                                     <td class="sin">&nbsp;</td>
-
-
                                 </tr>
 
 
@@ -181,16 +180,39 @@
             $persona es una variable cualquiera
             */
                                     //-----------------------------------------------------------------------
-                                ?>
 
+
+
+                                ?>
                                     <tr>
                                         <td><?php echo $persona->id ?> </td>
                                         <td><?php echo $persona->banda ?></td>
                                         <td><?php echo $persona->disco ?></td>
                                         <td><?php echo $persona->anio ?></td>
                                         <td><?php echo $persona->cancion_1 ?></td>
-                                        <td><?php echo $persona->mp_3 ?></td>
-                                        <td class="bot"><a href="borrar.php?id=<?php echo $persona->id ?>"><input type='button' name='del' id='del' value='Borrar'></a></td>
+                                        <td><?php //echo $persona->mp_3 
+                                            ?>
+                                            <?php $can = $persona->mp_3;
+
+                                            echo $can;
+                                            //---------------------------------------------------------------------------------------
+                                            //---------------------------------------------------------------------------------------
+                                            //          Ver aca o puedo reproducir el tema
+                                            //---------------------------------------------------------------------------------------
+                                            //---------------------------------------------------------------------------------------
+
+                                            ?>
+                                            <audio controls='' preload='none'>
+
+                                                <audio class='embed-responsive-item' controls='' preload='none'>
+                                                    <?php
+                                                    echo "<source src='mp3_mpeg/$can' type='audio/mp3'>"
+                                                    ?>
+                                                </audio><br>
+                                        </td>
+
+                                        <td class=" bot"><a href="borrar.php?id=<?php echo $persona->id ?>"><input type='button' name='del' id='del' value='Borrar'></a>
+                                        </td>
                                         <!-- ------------------------------ -->
                                         <!-- Estas lineas son de la edicion -->
 
