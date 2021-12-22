@@ -71,6 +71,7 @@
     $registros = $base->query("SELECT * FROM discos ORDER BY banda, disco, cancion_1 asc  LIMIT 
     $empezar_desde,$tamagno_pagina")->fetchAll(PDO::FETCH_OBJ);
 
+
     // parte del insert
     if (isset($_POST["cr"])) {
         $ban = $_POST["Banda"];
@@ -128,6 +129,9 @@
         $sql = "INSERT INTO discos (banda, disco, anio, cancion_1, mp_3) VALUES 
                                    (:banda, :disco, :anio, :cancion_1, :mp_3)";
         $resultado = $base->prepare($sql);
+
+
+
         $resultado->execute(array(
             ":banda" => $ban,
             ":disco" => $dis,
@@ -175,6 +179,7 @@
                                 //--------------------------------------------------------------------------
                                 // Esta parte es del READ
                                 foreach ($registros as $persona) :
+
                                     /*
             Este es el array donde tengo almacenados todos los objetos de mi BBDD
             $persona es una variable cualquiera
@@ -194,21 +199,30 @@
                                             ?>
                                             <?php $can = $persona->mp_3;
 
-                                            echo $can;
+
                                             //---------------------------------------------------------------------------------------
                                             //---------------------------------------------------------------------------------------
                                             //          Ver aca o puedo reproducir el tema
                                             //---------------------------------------------------------------------------------------
                                             //---------------------------------------------------------------------------------------
 
-                                            ?>
-                                            <audio controls='' preload='none'>
 
-                                                <audio class='embed-responsive-item' controls='' preload='none'>
-                                                    <?php
-                                                    echo "<source src='mp3_mpeg/$can' type='audio/mp3'>"
-                                                    ?>
-                                                </audio><br>
+                                            ?>
+
+                                            <?php echo $can  ?>
+                                            <audio controls height="100" width="100">
+
+                                                <embed height="50" width="100" src="../mp3_mpeg/$can">
+                                            </audio>
+                                            <!--
+                                            <div>
+                                                <button onclick=”document.getElementById(‘reproductor’).play()”>♫ ► ♫ </button>
+                                                <button onclick=”document.getElementById(‘reproductor’).pause()”>||</button>
+                                                <button onclick=”document.getElementById(‘reproductor’).volume+=1”>Vol +</button>
+                                                <button onclick=”document.getElementById(‘reproductor’).volume-=1”>Vol -</button>
+
+                                            </div>
+                                -->
                                         </td>
 
                                         <td class=" bot"><a href="borrar.php?id=<?php echo $persona->id ?>"><input type='button' name='del' id='del' value='Borrar'></a>
